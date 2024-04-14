@@ -1,6 +1,8 @@
 package com.maksimyurau.android.lab11_reddit.components
 
+import androidx.compose.animation.animateColor
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -40,22 +42,26 @@ fun JoinButton(onClick: (Boolean) -> Unit = {}) {
     )
 
 // Button background
-    val buttonBackgroundColor: Color by animateColorAsState(
-        if (buttonState == JoinButtonState.PRESSED)
-            Color.White
-        else
-                Color.Blue
-    )
+    val duration = 600
+    val buttonBackgroundColor: Color by transition.animateColor(
+        transitionSpec = { tween(duration) },
+        label = "Button Background Color"
+    ) { state ->
+        when (state) {
+            JoinButtonState.IDLE -> Color.Blue
+            JoinButtonState.PRESSED -> Color.White
+        }
+    }
 
 // Button icon
     val iconAsset: ImageVector =
         if (buttonState == JoinButtonState.PRESSED)
             Icons.Default.Check else
-                Icons.Default.Add
+            Icons.Default.Add
     val iconTintColor: Color =
         if (buttonState == JoinButtonState.PRESSED)
             Color.Blue else
-                Color.White
+            Color.White
 
     Box(
         modifier = Modifier
