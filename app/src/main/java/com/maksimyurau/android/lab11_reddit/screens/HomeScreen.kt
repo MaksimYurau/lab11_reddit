@@ -35,21 +35,21 @@ fun HomeScreen(viewModel: MainViewModel) {
     val onJoinClickAction: (Boolean) -> Unit = { joined ->
         isToastVisible = joined
         if (isToastVisible) {
-            Timer().schedule(3000) {isToastVisible = false }
+            Timer().schedule(3000) { isToastVisible = false }
         }
     }
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
             modifier = Modifier.background(
                 color =
-                    MaterialTheme.colors.secondary
+                MaterialTheme.colors.secondary
             )
         ) {
             items(posts) {
                 if (it.type == PostType.TEXT) {
-                    TextPost(it)
+                    TextPost(it, onJoinButtonClick = onJoinClickAction)
                 } else {
-                    ImagePost(it)
+                    ImagePost(it, onJoinButtonClick = onJoinClickAction)
                 }
                 Spacer(modifier = Modifier.height(6.dp))
             }
