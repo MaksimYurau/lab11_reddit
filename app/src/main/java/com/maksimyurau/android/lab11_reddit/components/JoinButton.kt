@@ -1,5 +1,6 @@
 package com.maksimyurau.android.lab11_reddit.components
 
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -33,10 +34,12 @@ fun JoinButton(onClick: (Boolean) -> Unit = {}) {
     val shape = RoundedCornerShape(corner = CornerSize(12.dp))
 
 // Button background
-    val buttonBackgroundColor: Color =
+    val buttonBackgroundColor: Color by animateColorAsState(
         if (buttonState == JoinButtonState.PRESSED)
-            Color.White else
+            Color.White
+        else
                 Color.Blue
+    )
 
 // Button icon
     val iconAsset: ImageVector =
