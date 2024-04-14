@@ -81,10 +81,16 @@ fun JoinButton(onClick: (Boolean) -> Unit = {}) {
         if (buttonState == JoinButtonState.PRESSED)
             Icons.Default.Check else
             Icons.Default.Add
-    val iconTintColor: Color =
-        if (buttonState == JoinButtonState.PRESSED)
-            Color.Blue else
-            Color.White
+    val iconTintColor: Color
+            by transition.animateColor(
+                transitionSpec = { tween(duration) },
+                label = "Icon Tint Color"
+            ) { state ->
+                when (state) {
+                    JoinButtonState.IDLE -> Color.White
+                    JoinButtonState.PRESSED -> Color.Blue
+                }
+            }
 
     Box(
         modifier = Modifier
