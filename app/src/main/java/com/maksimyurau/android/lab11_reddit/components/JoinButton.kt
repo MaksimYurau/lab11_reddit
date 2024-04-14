@@ -2,6 +2,7 @@ package com.maksimyurau.android.lab11_reddit.components
 
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.background
@@ -26,6 +27,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -52,6 +54,27 @@ fun JoinButton(onClick: (Boolean) -> Unit = {}) {
             JoinButtonState.PRESSED -> Color.White
         }
     }
+
+    val buttonWidth: Dp
+            by transition.animateDp(
+                transitionSpec = { tween(duration) },
+                label = "Button Width"
+            ) { state ->
+                when (state) {
+                    JoinButtonState.IDLE -> 70.dp
+                    JoinButtonState.PRESSED -> 32.dp
+                }
+            }
+    val textMaxWidth: Dp
+            by transition.animateDp(
+                transitionSpec = { tween(duration) },
+                label = "Text Max Width"
+            ) { state ->
+                when (state) {
+                    JoinButtonState.IDLE -> 40.dp
+                    JoinButtonState.PRESSED -> 0.dp
+                }
+            }
 
 // Button icon
     val iconAsset: ImageVector =
